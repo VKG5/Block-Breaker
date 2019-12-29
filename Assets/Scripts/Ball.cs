@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // Config Params
+    private Rigidbody2D rb;
     [SerializeField] Paddle paddle1;
     [SerializeField] float xPush = 2f;
     [SerializeField] float yPush = 10f;
@@ -16,6 +17,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         paddleToBall = transform.position - paddle1.transform.position;    
     }
 
@@ -37,11 +39,11 @@ public class Ball : MonoBehaviour
 
     private void LaunchOnMouseClick()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             // Primary Button pressed
             hasStarted = true;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(xPush, yPush);
+            rb.velocity = new Vector2(xPush, yPush);
         }
     }
 }
