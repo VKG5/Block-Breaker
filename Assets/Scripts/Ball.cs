@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // Config Params
-    private Rigidbody2D rb;
+    [SerializeField] AudioClip[] ballSounds;
     [SerializeField] Paddle paddle1;
     [SerializeField] float xPush = 2f;
     [SerializeField] float yPush = 10f;
@@ -14,10 +14,15 @@ public class Ball : MonoBehaviour
     Vector2 paddleToBall;
     bool hasStarted = false;
 
+    // Cached component references
+    private AudioSource myAudioSource;
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        myAudioSource = GetComponent<AudioSource>();
         paddleToBall = transform.position - paddle1.transform.position;    
     }
 
@@ -51,7 +56,8 @@ public class Ball : MonoBehaviour
     {
         if(hasStarted)
         {
-            GetComponent<AudioSource>().Play();
+            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+            myAudioSource.PlayOneShot(clip);
         }
     }
 }
