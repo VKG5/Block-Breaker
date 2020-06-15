@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,14 @@ public class Block : MonoBehaviour
     
     // Cached reference
     Level level;
+    GameStatus gameStatus;
 
     private void Start() 
     {
         // Or you can just type - [SerializeField] Level level; へ
         // Then dragged and dropped the object in the inspector |
         level = FindObjectOfType<Level>();    
+        gameStatus = FindObjectOfType<GameStatus>();
 
         // Calling the method to count the number of breakable objects
         level.countBreakableBlocks();
@@ -30,5 +33,6 @@ public class Block : MonoBehaviour
         AudioSource.PlayClipAtPoint(blockSound, Camera.main.transform.position);
         Destroy(gameObject);
         level.blockDestroyed();
+        gameStatus.AddToScore();
     }
 }
