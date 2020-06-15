@@ -30,6 +30,13 @@ public class GameStatus : MonoBehaviour
         }
     }
 
+    public void Reset() 
+    {
+        Destroy(gameObject);
+        currentScore = 0;
+        scoreText.text = currentScore.ToString();
+    }
+
     void Start() 
     {
         scoreText.text = currentScore.ToString();    
