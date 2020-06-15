@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4028226850855914296}
   - component: {fileID: 4028226850855914303}
   m_Layer: 0
-  m_Name: Red Block
+  m_Name: 'Breakable Block #1'
   m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,3 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockSound: {fileID: 8300000, guid: 40191a8de5d73ba4a8df3fd64e633bce, type: 3}
   blockSparkleVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}
+  maxHits: 1
+  hitSprites: []
+  timesHits: 0

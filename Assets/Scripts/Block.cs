@@ -5,32 +5,65 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    // Config Params
     [SerializeField] AudioClip blockSound;
     [SerializeField] GameObject blockSparkleVFX;
+    [SerializeField] int maxHits=3;
+    [SerializeField] Sprite[] hitSprites;
 
     // Cached reference
     Level level;
     GameStatus gameStatus;
 
+    // State Variables
+    [SerializeField] int timesHits=0; // Only serialized for debug purposes
+
     private void Start() 
+    {   
+        gameStatus = FindObjectOfType<GameStatus>();
+        breakableBlocks();
+    }
+
+    void breakableBlocks() 
     {
         // Or you can just type - [SerializeField] Level level; へ
         // Then dragged and dropped the object in the inspector |
-        level = FindObjectOfType<Level>();    
-        gameStatus = FindObjectOfType<GameStatus>();
-
+        level = FindObjectOfType<Level>(); 
+        
         // Calling the method to count the number of breakable objects
-        if(tag == "breakable")
+        if(tag == "Breakable")
+        {
             level.countBreakableBlocks();
+        }
+
+        // Debugging Purposes
+        // UnityEngine.Debug.Log(level.breakableBlocks);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) 
     {
         if(tag == "Breakable")
-            Destroy();
+        {
+            timesHits++;
+            if(timesHits >= maxHits)
+            {
+                DestroyBlock();
+            }
+
+            else
+            {
+                ShowNextHitSprite();
+            }
+        }
     }
 
-    private void Destroy()
+    private void ShowNextHitSprite() 
+    {
+        int spriteIndex = timesHits - 1;
+        GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
+    }
+
+    private void DestroyBlock()
     {
         playBlockBreakSFX();
 
