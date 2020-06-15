@@ -120,3 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockSound: {fileID: 8300000, guid: 40191a8de5d73ba4a8df3fd64e633bce, type: 3}
+  blockSparkleVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}
