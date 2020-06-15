@@ -20,12 +20,14 @@ public class Block : MonoBehaviour
         gameStatus = FindObjectOfType<GameStatus>();
 
         // Calling the method to count the number of breakable objects
-        level.countBreakableBlocks();
+        if(tag == "breakable")
+            level.countBreakableBlocks();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        Destroy();
+        if(tag == "Breakable")
+            Destroy();
     }
 
     private void Destroy()
