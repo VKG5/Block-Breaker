@@ -137,6 +137,7 @@ MonoBehaviour:
   paddle1: {fileID: 0}
   xPush: -2
   yPush: 15
+  randomFactor: 0.5
 --- !u!82 &388175040
 AudioSource:
   m_ObjectHideFlags: 0

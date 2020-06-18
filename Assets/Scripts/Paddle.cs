@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
+    // Config Params
     [SerializeField] float yPosition = 0.25f;
     [SerializeField] float xPosition = 11.5f;
     [SerializeField] float xChange = 0.25f;
@@ -20,12 +21,27 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.A))
-            paddlePos = new Vector2(Mathf.Clamp(transform.position.x-xChange, 1, 20.34f), yPosition);
+        // If autoplay is enabled
+        if(FindObjectOfType<GameStatus>().IsAutoPlayEnabled())
+        {
+            paddlePos = new Vector2(Mathf.Clamp(GetXPos(), 1, 20.34f), yPosition);
+        }
 
-        else if(Input.GetKey(KeyCode.D))
-            paddlePos = new Vector2(Mathf.Clamp(transform.position.x+xChange, 1, 20.34f), yPosition);
+        // If autoplay is not enabled
+        else
+        {
+            if(Input.GetKey(KeyCode.A))
+                paddlePos = new Vector2(Mathf.Clamp(transform.position.x-xChange, 1, 20.34f), yPosition);
+
+            else if(Input.GetKey(KeyCode.D))
+                paddlePos = new Vector2(Mathf.Clamp(transform.position.x+xChange, 1, 20.34f), yPosition);
+        }
 
         transform.position = paddlePos;
+    }
+
+    private float GetXPos()
+    {
+        return FindObjectOfType<Ball>().transform.position.x;
     }
 }

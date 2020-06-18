@@ -9,6 +9,7 @@ public class Ball : MonoBehaviour
     [SerializeField] Paddle paddle1;
     [SerializeField] float xPush = 2f;
     [SerializeField] float yPush = 10f;
+    [SerializeField] float randomFactor = 0.2f;
     
     // State
     Vector2 paddleToBall;
@@ -54,10 +55,16 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) 
     {
+        Vector2 velocityTweak = new Vector2
+            (UnityEngine.Random.Range(0f, randomFactor), 
+             Random.Range(0f, randomFactor));
+
         if(hasStarted)
         {
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
+
+            rb.velocity += velocityTweak;
         }
     }
 }
